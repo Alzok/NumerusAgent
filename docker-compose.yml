@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: numerus_agent_app
+    ports:
+      - "3000:3000" # Map host port 3000 to container port 3000
+    volumes:
+      # Mount the current directory to /app in the container
+      # This allows for hot-reloading on code changes
+      - .:/app
+      # Exclude node_modules from the volume mount for performance
+      # The container will use the node_modules installed via the Dockerfile RUN command
+      - /app/node_modules
+      # Also exclude Nuxt build directories if they exist locally
+      - /app/.nuxt
+      - /app/.output
+    environment:
+      # Ensures logs are output correctly
+      - NODE_ENV=development
+      # Optional: Specify host and port for Nuxt if needed (though already in Dockerfile CMD)
+      # - HOST=0.0.0.0
+      # - PORT=3000
+    # The command is already defined in the Dockerfile CMD
+    # command: npm run dev -- --host 0.0.0.0 

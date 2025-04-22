@@ -62,7 +62,7 @@
       - [x] - Configurer les variables d'environnement (`NODE_ENV=development`).
 - [x] 3. **Configuration Initiale Nuxt (`nuxt.config.ts`) :**
   - [x] - Vérifier les configurations de base.
-  - [ ] - Ajouter des modules Nuxt vuetify
+  - [x] - Ajouter des modules Nuxt vuetify
 - [x] 4. **Structure de Dossiers :**
   - [x] - Vérifier les dossiers standards : `server`, `public` présents. `components`, `pages`, `layouts`, `assets` seront créés au besoin.
 - [ ] 5. **Lancement Initial :**

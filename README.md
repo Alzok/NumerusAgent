@@ -24,16 +24,41 @@ Créer une interface web permettant de :
 - **Qualité du Code :** ESLint, Prettier, Husky, lint-staged
 - **Backend (Initial) :** Nuxt 3 Server Engine
 
-## Statut Actuel
+## État Actuel et Prochaines Étapes (YYYY-MM-DD)
 
-- **Phase 1 : Initialisation et Configuration de Base** - Terminé ✅
-  - Projet Nuxt 3 initialisé.
-  - Environnement Docker et Docker Compose configuré pour le développement.
-  - Outils de qualité du code (ESLint, Prettier, Husky, lint-staged) intégrés.
-  - Framework UI Vuetify 3 ajouté et configuré.
-- **Phase 2 : Développement Frontend** - À venir ⏳
-- **Phase 3 : Développement Backend et Intégration** - À venir ⏳
-- **Phase 4 : Améliorations et Fonctionnalités Futures** - À venir ⏳
+Le projet intègre maintenant Nuxt 3, Vuetify 3, et Pinia pour la gestion d'état.
+
+**Fonctionnalités Implémentées Récemment:**
+
+*   **Agents Drag & Drop:** Les agents peuvent être glissés depuis le `LeftPanel` et déposés dans le `MainWorkspace`. Leur position initiale est calculée correctement et ils utilisent un `workspaceId` unique.
+*   **Animation des Agents:** Les agents se déplacent de manière aléatoire dans l'espace de travail (logique de base implémentée).
+*   **Sélection et Détails:** Cliquer sur un agent dans l'espace de travail le sélectionne et affiche ses détails (Nom, Modèle IA) dans le `RightPanel` via le store Pinia.
+*   **Gestion des Tâches (UI + Store):**
+    *   Le store `agentStore` gère une propriété `task` pour chaque `WorkspaceAgent`.
+    *   Le `RightPanel` permet d'ouvrir un modal (`TaskModal`) pour "Créer Tâche" ou "Éditer Tâche" (si une tâche existe).
+    *   Le `TaskModal` se pré-remplit en mode édition.
+    *   La sauvegarde depuis le modal met à jour la tâche de l'agent sélectionné dans le store.
+*   **Authentification (UI):** Des pages et un layout (`/login`, `/register`, `layouts/auth.vue`) ont été créés pour la connexion/inscription (sans logique backend).
+
+**Problèmes Corrigés Récemment:**
+
+*   Erreurs de type/linter suite à la réinstallation des dépendances.
+*   Erreurs lors du dépôt du premier agent dans `MainWorkspace` (calcul des coordonnées, accès aux refs DOM via `$el`).
+*   Utilisation incohérente des ID (`id` vs `workspaceId`) corrigée.
+
+**Prochaine Étape Principale:**
+
+1.  **Pré-édition des Agents depuis `LeftPanel`:**
+    *   Ajouter un bouton/icône "Éditer" à chaque agent dans `LeftPanel.vue`.
+    *   Définir la logique pour que cliquer sur ce bouton "sélectionne" l'agent *avant* le drop, permettant de voir/modifier ses détails/tâche dans `RightPanel`.
+    *   Clarifier comment cette "pré-sélection" interagit avec le drag & drop standard.
+
+**Autres Tâches Potentielles:**
+
+*   Implémenter la logique backend pour l'authentification.
+*   Affiner la logique de déplacement des agents.
+*   Connecter la sélection du modèle IA et des services dans `TaskModal` à une logique réelle.
+*   Persistance de l'état des agents (localStorage, backend...).
 
 ## Démarrage Rapide (Développement)
 

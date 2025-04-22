@@ -43,31 +43,11 @@
 
 **Objectif :** Mettre en place la structure du projet, les dépendances et l'environnement Docker.
 
-- [x] 1. **Création du Projet Nuxt 3 :**
-  - [x] - Commande : `npx nuxi@latest init .` (Adapté pour initialiser dans le dossier courant)
-  - [x] - Installer les dépendances : `npm install`
-- [x] 2. **Configuration de Docker :**
-  - [x] - Créer un `Dockerfile` à la racine pour l'application Nuxt.
-      - [x] - Basé sur une image Node.js appropriée (`node:20-alpine`).
-      - [x] - Copier `package.json`, `package-lock.json`.
-      - [x] - Installer les dépendances (`npm install`).
-      - [x] - Copier le reste du code source (respecte `.dockerignore`).
-      - [x] - Exposer le port (3000).
-      - [x] - Définir la commande de démarrage (`CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]` pour le développement).
-  - [x] - Créer un fichier `.dockerignore`.
-  - [x] - Créer un fichier `docker-compose.yml`.
-      - [x] - Définir un service `app` basé sur le `Dockerfile`.
-      - [x] - Mapper les volumes pour le développement (`.:/app`, exclusion `/app/node_modules`, `/app/.nuxt`, `/app/.output`).
-      - [x] - Mapper les ports (`3000:3000`).
-      - [x] - Configurer les variables d'environnement (`NODE_ENV=development`).
-- [x] 3. **Configuration Initiale Nuxt (`nuxt.config.ts`) :**
-  - [x] - Vérifier les configurations de base.
-  - [x] - Ajouter des modules Nuxt vuetify
-- [x] 4. **Structure de Dossiers :**
-  - [x] - Vérifier les dossiers standards : `server`, `public` présents. `components`, `pages`, `layouts`, `assets` seront créés au besoin.
-- [ ] 5. **Lancement Initial :**
-  - [x] - Expliquer la commande `docker-compose up --build`.
-  * - [ ] Vérifier que l'application Nuxt de base est accessible dans le navigateur (À faire par l'utilisateur).
+- [x] 1. **Création du Projet Nuxt 3**
+- [x] 2. **Configuration de Docker**
+- [x] 3. **Configuration Initiale Nuxt (`nuxt.config.ts`)**
+- [x] 4. **Structure de Dossiers**
+- [x] 5. **Lancement Initial**
 
 ---
 
@@ -75,55 +55,57 @@
 
 **Objectif :** Construire l'intégralité de l'interface utilisateur décrite, sans la logique backend. Utiliser des données statiques ou des placeholders pour simuler le contenu dynamique.
 
-- [ ] 1.  **Mise en Page Principale (`layouts/default.vue`) :**
-  - [ ] - Créer la structure à trois colonnes : Panneau Gauche (25%), Zone Centrale (50%), Panneau Droit (25%). Utiliser Flexbox ou CSS Grid.
-  - [ ] - Implémenter la `TopBar` en haut.
-  - [ ] - S'assurer que les panneaux latéraux occupent toute la hauteur.
-  - [ ] - Appliquer des styles de base (couleurs de fond, bordures) pour délimiter les zones, en pensant au thème rétro SF / pixel art.
-- [ ] 2.  **Composant `TopBar` (`components/TopBar.vue`) :**
-  - [ ] - Afficher un nom d'utilisateur placeholder (ex: "PlayerOne").
-  - [ ] - Afficher un compteur de points (ex: "Points: 0").
-  - [ ] - Ajouter un bouton "Déconnexion" (sans fonctionnalité pour l'instant).
-  - [ ] - Ajouter une icône "Paramètres" (roue crantée, style pixel art).
-  - [ ] - Styliser la barre (pixel art, couleurs rétro SF).
-- [ ] 3.  **Composant `LeftPanel` (`components/LeftPanel.vue`) :**
-  - [ ] - Implémenter la fonctionnalité "refermable" (bouton pour masquer/afficher).
-  - [ ] - Afficher une liste statique d'agents (ex: "Agent Alpha", "Agent Beta", "Agent Vierge"). Chaque item doit avoir une petite icône de robot pixel art.
-  - [ ] - Rendre chaque agent de la liste _draggable_. Utiliser l'API HTML5 Drag and Drop ou une librairie Vue (ex: `vue-draggable-next`).
+- [✅] 1.  **Mise en Page Principale (`layouts/default.vue`) :**
+  - [✅] - Créer la structure à trois colonnes : Panneau Gauche (25%), Zone Centrale (50%), Panneau Droit (25%). Utiliser Flexbox ou CSS Grid.
+  - [✅] - Implémenter la `TopBar` en haut.
+  - [✅] - S'assurer que les panneaux latéraux occupent toute la hauteur.
+  - [✅] - Appliquer des styles de base (couleurs de fond, bordures) pour délimiter les zones.
+- [✅] 2.  **Composant `TopBar` (`components/TopBar.vue`) :**
+  - [✅] - Afficher un nom d'utilisateur placeholder (ex: "PlayerOne").
+  - [✅] - Afficher un compteur de points (ex: "Points: 0").
+  - [✅] - Ajouter un bouton "Déconnexion".
+  - [✅] - Ajouter une icône "Paramètres".
+  - [ ] - Styliser la barre (pixel art).
+- [✅] 3.  **Composant `LeftPanel` (`components/LeftPanel.vue`) :**
+  - [✅] - Implémenter la fonctionnalité "refermable".
+  - [✅] - Afficher une liste statique d'agents (via API `predefined`).
+  - [✅] - Rendre chaque agent de la liste _draggable_.
+  - [🚧] - **PROCHAINE ÉTAPE :** Ajouter un bouton/icône 'Éditer' pour pré-sélectionner l'agent.
   - [ ] - Styliser le panneau et la liste (pixel art).
-- [ ] 4.  **Composant `MainWorkspace` (`components/MainWorkspace.vue`) :**
-  - [ ] - Définir cette zone comme une _dropzone_ pour les agents venant du `LeftPanel`.
-  - [ ] - Lorsqu'un agent est déposé :
-      - [ ] - Afficher une représentation de l'agent (un composant `AgentRobot`) à l'endroit du drop (ou à une position gérée).
-      - [ ] - Passer des props au `AgentRobot` (ex: type d'agent, image).
-  - [ ] - Gérer l'état des agents présents dans la zone (utiliser `useState` de Nuxt ou Pinia pour une gestion d'état simple).
+- [✅] 4.  **Composant `MainWorkspace` (`components/MainWorkspace.vue`) :**
+  - [✅] - Définir cette zone comme une _dropzone_.
+  - [✅] - Lorsqu'un agent est déposé :
+      - [✅] - Afficher une représentation de l'agent (`AgentRobot`) à l'endroit du drop (via store).
+      - [✅] - Passer des props au `AgentRobot`.
+  - [✅] - Gérer l'état des agents présents via Pinia (`agentStore`).
   - [ ] - Styliser la zone (peut-être une grille de fond, style vaisseau spatial).
-- [ ] 5.  **Composant `AgentRobot` (`components/AgentRobot.vue`) :**
-  - [ ] - Accepter des props (nom, image, état, etc.).
-  - [ ] - Afficher l'image du robot mignon (pixel art).
-  - [ ] - Implémenter une animation simple (ex: idle, clignotement). Utiliser CSS ou une librairie d'animation.
-  - [ ] - Rendre le robot cliquable. Le clic doit émettre un événement pour indiquer qu'il est sélectionné.
-  - [ ] - (Optionnel - Sandbox) Permettre un léger déplacement aléatoire ou contrôlé du robot dans la `MainWorkspace`.
-- [ ] 6.  **Composant `RightPanel` (`components/RightPanel.vue`) :**
-  - [ ] - Implémenter la fonctionnalité "refermable".
-  - [ ] - S'affiche ou se met à jour lorsque le panel est ouvert (suite à un clic sur un `AgentRobot` ou un drop).
-  - [ ] - Afficher les détails de l'agent sélectionné (nom, tâche actuelle - placeholders initialement).
-  - [ ] - Ajouter les boutons : "Supprimer Tâche", "Changer Tâche", "Éditer Tâche", "Créer Tâche".
+- [✅] 5.  **Composant `AgentRobot` (`components/AgentRobot.vue`) :**
+  - [✅] - Accepter des props (id, nom, image, x, y).
+  - [✅] - Afficher l'image du robot.
+  - [✅] - Implémenter une animation simple (mouvement aléatoire).
+  - [✅] - Rendre le robot cliquable (émet événement `selected`).
+- [✅] 6.  **Composant `RightPanel` (`components/RightPanel.vue`) :**
+  - [✅] - Implémenter la fonctionnalité "refermable".
+  - [✅] - S'affiche ou se met à jour lorsque le panel est ouvert (via store `selectedAgentId`).
+  - [✅] - Afficher les détails de l'agent sélectionné (nom, modèle, tâche via store).
+  - [✅] - Ajouter les boutons : "Supprimer Agent", "Créer Tâche", "Éditer Tâche".
   - [ ] - Styliser le panneau (pixel art).
-- [ ] 7.  **Composant `TaskModal` (`components/TaskModal.vue`) :**
-  - [ ] - Créer un composant modal (pop-in).
-  - [ ] - Le modal doit contenir un formulaire pour :
-      - [ ] - Éditer/Créer le nom ou le prompt de la tâche (textarea).
-      - [ ] - Sélectionner un modèle d'IA (dropdown avec options statiques : "Modèle X (OpenAI)", "Modèle Y (Anthropic)").
-      - [ ] - Sélectionner des services à connecter (checkboxes/liste statique : "Service Mail", "Service Calendrier").
-  - [ ] - Ajouter des boutons "Sauvegarder" et "Annuler".
-  - [ ] - Le modal doit pouvoir être affiché/masqué (contrôlé par le `RightPanel`).
+- [✅] 7.  **Composant `TaskModal` (`components/TaskModal.vue`) :**
+  - [✅] - Créer un composant modal (`v-dialog`).
+  - [✅] - Le modal contient un formulaire pour :
+      - [✅] - Éditer/Créer le nom/prompt (textarea).
+      - [✅] - Sélectionner un modèle d'IA (dropdown statique).
+      - [✅] - Sélectionner des services (checkboxes statiques).
+  - [✅] - Ajouter des boutons "Sauvegarder" et "Annuler".
+  - [✅] - Le modal est contrôlé par `RightPanel` (`isVisible`, `editingTask` props, `@close`, `@save` emits).
+  - [✅] - La sauvegarde appelle l'action du store `updateAgentTask`.
   - [ ] - Styliser le modal (pixel art).
-- [ ] 8.  **Routing et Authentification (UI Seulement) :**
-  - [ ] - Créer les pages `pages/login.vue` et `pages/register.vue`.
-  - [ ] - Implémenter des formulaires simples (email, mot de passe) sans logique de soumission réelle.
-  - [ ] - Configurer le routing dans `nuxt.config.ts` ou via la structure de `pages/`.
-  - [ ] - Créer une redirection simple (simulée) vers la page principale après un "login" réussi.
+- [✅] 8.  **Routing et Authentification (UI Seulement) :**
+  - [✅] - Créer les pages `pages/login.vue` et `pages/register.vue`.
+  - [✅] - Implémenter des formulaires simples (email, mot de passe).
+  - [✅] - Configurer le routing via `pages/`.
+  - [✅] - Créer un layout `layouts/auth.vue` pour ces pages.
+  - [✅] - Implémenter une redirection simulée après "login"/"register".
 - [ ] 9.  **Styling Global et Pixel Art :**
   - [ ] - Choisir une palette de couleurs rétro SF.
   - [ ] - Trouver/Créer une police pixel art et l'intégrer (`@font-face`).
@@ -191,33 +173,24 @@ Ce document détaille les points d'amélioration et d'attention suggérés par d
 
 - [ ] 1.  **Phase 1 (Setup) : Qualité et Outillage**
 
-  - [x] - **Qualité du Code :** Intégrer dès le début `ESLint` (linting), `Prettier` (formatage), `Husky` et `lint-staged` (pre-commit hooks) pour garantir la cohérence et prévenir les erreurs.
-  - [ ] - **Architecture CSS :** Préciser l'approche. Envisager :
-      - [ ] - **Variables CSS :** Pour la palette de couleurs, polices pixel, etc., facilitant le theming.
-      - [ ] - **CSS Modules** ou **Scoped CSS (Vue)** : Pour l'encapsulation et éviter les conflits, crucial pour un thème fort.
-      - [ ] - Évaluer Tailwind CSS pour l'agencement rapide, en complément.
-  - [ ] - **Développement Isolé des Composants :** Utiliser `Storybook` ou `Histoire`. Essentiel pour développer, tester et documenter les composants UI complexes (robots, panneaux) en isolation.
+  - [x] - **Qualité du Code :** `ESLint`, `Prettier`, `Husky`, `lint-staged` intégrés.
+  - [ ] - **Architecture CSS :** Préciser l'approche.
+  - [ ] - **Développement Isolé des Composants :** Utiliser `Storybook` ou `Histoire`.
 
 - [ ] 2.  **Phase 2 (Frontend) : Expérience Utilisateur et Robustesse**
 
-  - [ ] - **Gestion d'État Avancée :** Recommander fortement `Pinia` pour gérer l'état complexe (panneaux, agent sélectionné, agents sur workspace, modales). Structurer les stores logiquement (`uiStore`, `agentStore`, `userStore`).
-  - [ ] - **Composants Réutilisables :** Insister sur la création de composants de base stylisés "pixel art" (`BaseButton`, `BasePanel`, `BaseModal`) pour la cohérence et la réutilisabilité.
-  - [ ] - **Performance des Animations et Interactions :**
-      - [ ] - **Drag and Drop / Animations :** Considérer la performance si beaucoup d'éléments. Privilégier `transform`/`opacity` CSS. Envisager `SVG` ou `<canvas>` pour animations très complexes.
-      - [ ] - **Listes Longues :** Penser à la virtualisation ("windowing") pour la liste d'agents si elle peut s'allonger.
-  - [ ] - **Accessibilité (a11y) :**
-      - [ ] - Intégrer dès le début : Navigation clavier, attributs ARIA (D&D, modales, panneaux), contrastes de couleurs (vigilance avec pixel art).
-      - [ ] - Utiliser des outils d'audit d'accessibilité.
-  - [ ] - **Game Feel / Sandbox :**
-      - [ ] - Définir _précisément_ le comportement sandbox (grille ? libre ? collisions ?).
-      - [ ] - Planifier les animations des robots tôt (idle, travail, erreur...).
-  - [ ] - **Responsive Design :** Penser à une adaptation minimale pour les écrans plus petits (panneaux en overlay ?).
-  - [ ] - **Tests Frontend :** Recommander d'ajouter des tests unitaires/composants (Vitest + Vue Testing Library) au fil de l'eau.
+  - [✅] - **Gestion d'État Avancée :** `Pinia` utilisé et structuré (`agentStore`).
+  - [ ] - **Composants Réutilisables :** Créer `BaseButton`, `BasePanel`, `BaseModal`.
+  - [ ] - **Performance des Animations et Interactions**
+  - [ ] - **Accessibilité (a11y)**
+  - [ ] - **Game Feel / Sandbox**
+  - [ ] - **Responsive Design**
+  - [ ] - **Tests Frontend**
 
 - [ ] 3.  **Phase 3 (Intégration) : Feedback Utilisateur**
-  - [ ] - **Gestion Fine des Erreurs :** Système de notifications utilisateur (toasts) pour les erreurs API/succès. Intercepteur global pour les erreurs HTTP.
-  - [ ] - **Indicateurs de Chargement :** Spinners, "skeleton screens" stylisés partout où des données sont chargées.
-  - [ ] - **Optimistic UI :** Envisager pour les actions rapides (déplacer agent, assigner tâche simple), avec gestion des échecs.
+  - [ ] - **Gestion Fine des Erreurs**
+  - [ ] - **Indicateurs de Chargement**
+  - [ ] - **Optimistic UI**
 
 ---
 

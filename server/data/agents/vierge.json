@@ -1,0 +1,10 @@
+{
+  "id": "vierge",
+  "name": "Agent Vierge",
+  "speed": 1.5,
+  "image": "mdi-robot-happy",
+  "modelName": null,
+  "modelProvider": null,
+  "prompt": "Configurez-moi !",
+  "services": []
+} 

@@ -17,5 +17,6 @@ COPY . .
 EXPOSE 3000
 
 # Set the default command to run the development server
+# First remove .output directory, then run dev
 # We bind to 0.0.0.0 to make it accessible from outside the container
-CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"] 
+CMD ["sh", "-c", "rm -rf /app/.output && npm run dev -- --host 0.0.0.0"] 

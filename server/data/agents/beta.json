@@ -1,0 +1,10 @@
+{
+  "id": "beta",
+  "name": "Agent Beta",
+  "speed": 2.5,
+  "image": "mdi-robot-excited",
+  "modelName": "Claude 3 Opus",
+  "modelProvider": "Anthropic",
+  "prompt": "Je suis BetaBot, spécialisé dans l'analyse de données.",
+  "services": ["Service Mail", "Service Calendrier"]
+} 

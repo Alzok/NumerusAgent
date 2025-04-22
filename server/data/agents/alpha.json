@@ -1,0 +1,10 @@
+{
+  "id": "alpha",
+  "name": "Agent Alpha",
+  "speed": 1.0,
+  "image": "mdi-robot",
+  "modelName": "GPT-4o",
+  "modelProvider": "OpenAI",
+  "prompt": "Tu es AlphaBot, un assistant généraliste.",
+  "services": []
+} 

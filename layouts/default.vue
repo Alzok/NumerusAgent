@@ -12,6 +12,8 @@
       width="300"
       :rail="isLeftPanelRail"
       @update:rail="isLeftPanelRail = $event"
+      class="left-drawer-pixel-style"
+      color="surface" 
     >
       <LeftPanel v-model:isRail="isLeftPanelRail" />
     </v-navigation-drawer>
@@ -124,4 +126,18 @@ const closeSnackbarManual = () => {
 }
 /* Add any layout-specific styles here if needed */
 /* Ensure panels take full height - Vuetify's 'app' prop usually handles this */
+
+/* Styling for the Left Navigation Drawer Container */
+:deep(.v-navigation-drawer.left-drawer-pixel-style) {
+  font-family: 'Press Start 2P', monospace !important; /* Ensure drawer itself has the font */
+  border-right: 3px solid #212121 !important; /* Dark border */
+  border-radius: 0 !important; /* No rounded corners */
+  box-shadow: none !important; /* Remove default shadow */
+  /* background-color is explicitly set by color="surface" prop on v-navigation-drawer,
+     but can be overridden here if needed: var(--v-theme-surface) !important; */
+}
+
+/* If LeftPanel.vue's root div .left-panel-container also sets font-family,
+   this ensures the v-navigation-drawer itself has it for any direct text/elements if any.
+   The styles from LeftPanel.vue for its internal content should still apply. */
 </style>

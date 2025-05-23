@@ -22,6 +22,7 @@
         :x="agent.x"
         :y="agent.y"
         :image="agent.image"
+        :task-status="agent.taskStatus"
         @selected="handleAgentSelected"
       />
     </div>
@@ -109,8 +110,14 @@ const moveAgents = () => {
   const containerHeight = Math.max(0, containerRect.height - 60);
 
   const newPositions = agentStore.agentsInWorkspace.map(agent => {
-    let { workspaceId, x, y, targetX, targetY, speed } = agent;
+    let { workspaceId, x, y, targetX, targetY, speed, taskStatus } = agent; // Destructure taskStatus
 
+    // If agent is processing a task, it should stop moving.
+    if (taskStatus === 'processing') {
+      return { workspaceId, x, y, targetX: x, targetY: y }; // Target current position
+    }
+
+    // Existing movement logic for 'idle', 'completed', 'error' statuses
     const dx = targetX - x;
     const dy = targetY - y;
     const distance = Math.sqrt(dx * dx + dy * dy);

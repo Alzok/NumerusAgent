@@ -36,7 +36,8 @@
         <v-btn block variant="tonal" color="secondary" class="mb-2" prepend-icon="mdi-pencil" @click="showEditTaskModal" :disabled="!selectedAgentTask">
           Éditer Tâche
         </v-btn>
-         <v-btn block variant="tonal" color="secondary" class="mb-2" prepend-icon="mdi-swap-horizontal" :disabled="!selectedAgentTask">
+        <!-- TODO: Implement 'Change Task' functionality (e.g., select from a list of predefined/saved tasks) -->
+         <v-btn block variant="tonal" color="secondary" class="mb-2" prepend-icon="mdi-swap-horizontal" :disabled="true">
           Changer Tâche
         </v-btn>
          <v-btn block variant="tonal" color="error" class="mb-2" prepend-icon="mdi-delete" @click="removeSelectedAgent">

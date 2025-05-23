@@ -20,6 +20,9 @@ export interface Task {
   services: string[]; // Services connectés
 }
 
+// Statut des tâches de l'agent
+export type AgentTaskStatus = 'idle' | 'processing' | 'completed' | 'error';
+
 // Structure pour un agent dans l'espace de travail (incluant la position)
 export interface WorkspaceAgent extends AgentConfig {
   workspaceId: string; // Identifiant unique dans l'espace de travail
@@ -28,12 +31,14 @@ export interface WorkspaceAgent extends AgentConfig {
   targetX: number;
   targetY: number;
   task: Task | null; // Ajout de la propriété task
+  taskStatus: AgentTaskStatus; // Ajout du statut de la tâche
 }
 
 export const useAgentStore = defineStore('agentStore', {
   state: () => ({
     workspaceAgents: [] as WorkspaceAgent[],
     selectedAgentId: null as string | null,
+    taskError: null as string | null, // Added for task error reporting
   }),
 
   getters: {
@@ -60,6 +65,7 @@ export const useAgentStore = defineStore('agentStore', {
         targetX: x,
         targetY: y,
         task: null,
+        taskStatus: 'idle', // Initialisation du statut de la tâche
       };
       this.workspaceAgents.push(newAgent);
       this.selectedAgentId = workspaceId;
@@ -107,14 +113,73 @@ export const useAgentStore = defineStore('agentStore', {
       console.log('[Store] Agent removed:', workspaceId);
     },
 
-    updateAgentTask(workspaceId: string, task: Task | null) {
+    async updateAgentTask(workspaceId: string, task: Task | null) {
       const agent = this.workspaceAgents.find(a => a.workspaceId === workspaceId);
       if (agent) {
         agent.task = task;
-        console.log(`Task updated for agent ${workspaceId}:`, task);
+        console.log(`Task data updated for agent ${workspaceId}:`, task);
+
+        if (task) {
+          this.updateAgentTaskStatus(workspaceId, 'processing');
+          try {
+            const response = await fetch('/api/ai/executeTask', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                prompt: task.name, // Utiliser task.name comme prompt
+                model: task.model,
+                services: task.services,
+              }),
+            });
+
+            if (response.ok) {
+              const result = await response.json();
+              this.updateAgentTaskStatus(workspaceId, 'completed');
+              console.log('AI task result for agent', workspaceId, ':', result.result);
+              // Optionally, store the result on the agent or elsewhere
+              // agent.lastTaskResult = result.result; 
+            } else {
+              this.updateAgentTaskStatus(workspaceId, 'error');
+              let errorMessage = `HTTP error ${response.status}: ${response.statusText}`;
+              try {
+                const errorBody = await response.json();
+                if (errorBody && errorBody.message) {
+                  errorMessage = errorBody.message;
+                }
+              } catch (e) {
+                // Ignore if error body is not JSON or doesn't have message
+              }
+              this.taskError = `Failed to execute task for agent ${agent.name}: ${errorMessage}`;
+              console.error('AI task execution failed for agent', workspaceId, ':', errorMessage);
+            }
+          } catch (error) {
+            this.updateAgentTaskStatus(workspaceId, 'error');
+            this.taskError = `Network error for agent ${agent.name}: Could not connect to AI service. Please check your connection.`;
+            console.error('AI task execution network error for agent', workspaceId, ':', error);
+          }
+        } else {
+          // Task is null, so set status to idle
+          this.updateAgentTaskStatus(workspaceId, 'idle');
+        }
       } else {
         console.error(`Agent with workspaceId ${workspaceId} not found for task update.`);
       }
+    },
+
+    updateAgentTaskStatus(workspaceId: string, status: AgentTaskStatus) {
+      const agent = this.workspaceAgents.find(a => a.workspaceId === workspaceId);
+      if (agent) {
+        agent.taskStatus = status;
+        console.log(`Task status updated for agent ${workspaceId}:`, status);
+      } else {
+        console.error(`Agent with workspaceId ${workspaceId} not found for task status update.`);
+      }
+    },
+
+    clearTaskError() {
+      this.taskError = null;
     },
   }
 }); 

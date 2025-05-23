@@ -37,17 +37,61 @@
       />
     </v-navigation-drawer>
 
+    <v-snackbar
+      v-model="showErrorSnackbar"
+      color="error"
+      :timeout="6000"
+      multi-line
+      location="top right"
+      @update:modelValue="handleSnackbarClose"
+    >
+      {{ agentStore.taskError }}
+      <template v-slot:actions>
+        <v-btn color="white" variant="text" @click="closeSnackbarManual">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+
   </v-app>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue'; // Ensured watch is imported
 import TopBar from '~/components/TopBar.vue';
 import LeftPanel from '~/components/LeftPanel.vue';
 import RightPanel from '~/components/RightPanel.vue';
+import { useAgentStore } from '~/stores/agentStore'; // Added import
 
 const isLeftPanelRail = ref(false);
 const isRightPanelRail = ref(false);
+
+const agentStore = useAgentStore(); // Added store instance
+
+const showErrorSnackbar = ref(false);
+
+// Watch for errors from the store
+watch(() => agentStore.taskError, (newError) => {
+  if (newError) {
+    showErrorSnackbar.value = true;
+  }
+});
+
+// Called when snackbar's model-value changes (e.g. timeout, user click)
+const handleSnackbarClose = (isVisible: boolean) => {
+  if (!isVisible && agentStore.taskError) {
+    // If snackbar is hidden and there was an error, clear it.
+    agentStore.clearTaskError();
+  }
+};
+
+const closeSnackbarManual = () => {
+  showErrorSnackbar.value = false;
+  // handleSnackbarClose will be called due to v-model update
+  // or we can explicitly call:
+  // agentStore.clearTaskError();
+};
+
 </script>
 
 <style scoped>

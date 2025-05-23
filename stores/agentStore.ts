@@ -32,6 +32,7 @@ export interface WorkspaceAgent extends AgentConfig {
   targetY: number;
   task: Task | null; // Ajout de la propriété task
   taskStatus: AgentTaskStatus; // Ajout du statut de la tâche
+  lastResponse?: string | null; // New property for AI response
 }
 
 export const useAgentStore = defineStore('agentStore', {
@@ -66,6 +67,7 @@ export const useAgentStore = defineStore('agentStore', {
         targetY: y,
         task: null,
         taskStatus: 'idle', // Initialisation du statut de la tâche
+        lastResponse: null, // Initialize lastResponse
       };
       this.workspaceAgents.push(newAgent);
       this.selectedAgentId = workspaceId;
@@ -129,7 +131,7 @@ export const useAgentStore = defineStore('agentStore', {
               },
               body: JSON.stringify({
                 prompt: task.name, // Utiliser task.name comme prompt
-                model: task.model,
+                modelIdentifier: task.model, // Changed 'model' to 'modelIdentifier'
                 services: task.services,
               }),
             });
@@ -138,10 +140,12 @@ export const useAgentStore = defineStore('agentStore', {
               const result = await response.json();
               this.updateAgentTaskStatus(workspaceId, 'completed');
               console.log('AI task result for agent', workspaceId, ':', result.result);
-              // Optionally, store the result on the agent or elsewhere
-              // agent.lastTaskResult = result.result; 
+              if (agent) { // Agent should still be in scope here
+                agent.lastResponse = result.result; // Store the AI response
+              }
             } else {
               this.updateAgentTaskStatus(workspaceId, 'error');
+              // No specific lastResponse update here, as it's an error
               let errorMessage = `HTTP error ${response.status}: ${response.statusText}`;
               try {
                 const errorBody = await response.json();
@@ -160,8 +164,11 @@ export const useAgentStore = defineStore('agentStore', {
             console.error('AI task execution network error for agent', workspaceId, ':', error);
           }
         } else {
-          // Task is null, so set status to idle
+          // Task is null, so set status to idle and clear last response
           this.updateAgentTaskStatus(workspaceId, 'idle');
+          if (agent) {
+            agent.lastResponse = null; // Clear last response when task is removed
+          }
         }
       } else {
         console.error(`Agent with workspaceId ${workspaceId} not found for task update.`);
@@ -172,6 +179,9 @@ export const useAgentStore = defineStore('agentStore', {
       const agent = this.workspaceAgents.find(a => a.workspaceId === workspaceId);
       if (agent) {
         agent.taskStatus = status;
+        if (status === 'processing') {
+          agent.lastResponse = null; // Clear last response when processing starts
+        }
         console.log(`Task status updated for agent ${workspaceId}:`, status);
       } else {
         console.error(`Agent with workspaceId ${workspaceId} not found for task status update.`);

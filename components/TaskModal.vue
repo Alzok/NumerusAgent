@@ -22,7 +22,9 @@
               <v-select
                 v-model="selectedModel"
                 label="Modèle d'IA"
-                :items="aiModels" 
+                :items="aiModels"
+                item-title="title"
+                item-value="value"
                 variant="outlined"
                 density="compact"
                 clearable
@@ -76,8 +78,15 @@ const taskName = ref('');
 const selectedModel = ref<string | null>(null);
 const selectedServices = ref<string[]>([]);
 
-// Options statiques pour le sélecteur de modèle
-const aiModels = ['Modèle X (OpenAI)', 'Modèle Y (Anthropic)', 'Modèle Z (Local)'];
+// Structured AI model options for the select component
+const aiModels = ref([
+  { title: 'Select a model', value: null as string | null, disabled: true }, // Placeholder
+  { title: 'Basic Responder (Mock)', value: 'mock/basic-responder' },
+  { title: 'Advanced Responder (Mock)', value: 'mock/advanced-responder' },
+  // Future models can be added here. These values should match modelIdentifiers in backend config.
+  // { title: 'GPT-4o (OpenAI)', value: 'openai/gpt-4o' }, // Example if configured
+  // { title: 'Mistral (Ollama)', value: 'ollama/mistral' }, // Example if configured
+]);
 
 // Fonction pour fermer le modal
 const closeModal = () => {

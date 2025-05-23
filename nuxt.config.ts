@@ -12,6 +12,13 @@ export default defineNuxtConfig({
   modules: [
     'vuetify-nuxt-module',
     '@pinia/nuxt'
+  },
+
+  runtimeConfig: {
+    // Keys here are only available server-side
+    openaiApiKey: process.env.OPENAI_API_KEY,
+    anthropicApiKey: process.env.ANTHROPIC_API_KEY,
+    // otherAiServiceApiKey: process.env.OTHER_AI_SERVICE_API_KEY, // Example
   ],
 
   vuetify: {

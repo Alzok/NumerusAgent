@@ -1,41 +1,72 @@
 import { defineEventHandler, readBody, createError } from 'h3';
+import { getModelConfig } from '~/server/services/ai/config';
+import { MockAIService } from '~/server/services/ai/MockAIService';
+// Note: constructModelIdentifier is not used in this file as per current plan
+// import { getModelConfig, constructModelIdentifier } from '~/server/services/ai/config';
+
 
 // Interface for the expected request body
 interface ExecuteTaskRequestBody {
   prompt: string;
-  model: string | null;
-  services: string[];
-  // Add any other properties you expect in the task
+  modelIdentifier: string; // e.g., "mock/basic-responder"
+  services: string[]; // Kept for potential future use
 }
 
 export default defineEventHandler(async (event) => {
-  // 1. Read the request body
   const body = await readBody<ExecuteTaskRequestBody>(event);
 
-  // 4a. Basic error handling for malformed or missing request body
-  if (!body || typeof body.prompt !== 'string' || !Array.isArray(body.services)) {
+  // Basic validation for the new request body structure
+  if (!body || typeof body.prompt !== 'string' || typeof body.modelIdentifier !== 'string') {
     throw createError({
       statusCode: 400,
-      statusMessage: 'Bad Request: Invalid task data. Prompt and services are required.',
+      statusMessage: 'Bad Request: Prompt and modelIdentifier are required.',
     });
   }
 
-  // 4b. Log the received task details
   console.log('Received task for AI execution:', {
     prompt: body.prompt,
-    model: body.model,
-    services: body.services,
+    modelIdentifier: body.modelIdentifier,
+    services: body.services, // Logged if present
   });
 
-  // 4c. Simulate AI processing using a timeout
-  console.log('Simulating AI processing...');
-  await new Promise(resolve => setTimeout(resolve, 3000));
-  console.log('AI processing simulation complete.');
+  const modelConfig = getModelConfig(body.modelIdentifier);
 
-  // 4d. Return a mock success JSON response
+  if (!modelConfig) {
+    throw createError({
+      statusCode: 400, // Or 404 if preferred for "resource not found"
+      statusMessage: `Invalid model identifier provided: ${body.modelIdentifier}`,
+    });
+  }
+
+  let aiResponse: string;
+
+  if (modelConfig.provider === 'mock') {
+    const service = new MockAIService(modelConfig);
+    try {
+      // Pass services array as part of context if MockAIService is adapted to use it
+      // For now, context is not deeply used by MockAIService, but could be:
+      // const context = { services: body.services };
+      // aiResponse = await service.execute(body.prompt, context);
+      aiResponse = await service.execute(body.prompt);
+    } catch (e: any) {
+      console.error(`Error during MockAIService execution for ${modelConfig.modelId}:`, e);
+      throw createError({
+        statusCode: 500,
+        statusMessage: `Error processing task with mock service: ${e.message}`,
+      });
+    }
+  } else {
+    // Handle other providers in the future (OpenAI, Ollama, etc.)
+    console.warn(`Provider '${modelConfig.provider}' not implemented yet for model ${modelConfig.modelId}.`);
+    throw createError({
+      statusCode: 501,
+      statusMessage: `Provider '${modelConfig.provider}' not implemented yet.`,
+    });
+  }
+
   return {
     success: true,
-    message: 'Task processed successfully.',
-    result: `This is a mock AI response to the prompt: "${body.prompt}"`,
+    message: `Task processed successfully by ${modelConfig.displayName || modelConfig.modelId}`,
+    result: aiResponse,
   };
 });

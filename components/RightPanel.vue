@@ -43,6 +43,14 @@
          <v-btn block variant="tonal" color="error" class="mb-2" prepend-icon="mdi-delete" @click="removeSelectedAgent">
           Supprimer Agent
         </v-btn>
+
+        <!-- Section to display the last AI response -->
+        <div v-if="selectedAgent && selectedAgent.lastResponse" class="mt-4">
+          <p class="text-subtitle-1">Dernière Réponse de l'IA:</p>
+          <v-card variant="outlined" class="pa-3" style="max-height: 200px; overflow-y: auto;">
+            <pre style="white-space: pre-wrap; font-family: monospace; font-size: 0.875rem;">{{ selectedAgent.lastResponse }}</pre>
+          </v-card>
+        </div>
       </div>
       <div v-else class="text-center text-grey">
         Aucun agent sélectionné

@@ -120,15 +120,15 @@
 **Objectif :** Implémenter la logique serveur, la gestion des données (configurations, utilisateurs) et connecter le Frontend au Backend.
 
 - [ ] 1.  **Configuration des Agents (Backend) :**
-  - [ ] - Créer un dossier `/agents` (ou un emplacement configurable) à la racine du projet (ou dans `/server`).
-  - [ ] - Créer quelques fichiers de configuration JSON (ou YAML) pour les agents prédéfinis.
+  - [✅] - Créer un dossier `/agents` (ou un emplacement configurable) à la racine du projet (ou dans `/server`).
+  - [✅] - Créer quelques fichiers de configuration JSON (ou YAML) pour les agents prédéfinis.
       - [ ] - Exemple `agent-alpha.json`: `{ "name": "AlphaBot", "modelName": "GPT-4o", "modelProvider": "OpenAI", "image": "/images/robots/alpha.png", "prompt": "Tu es AlphaBot, un assistant généraliste.", "services": [] }`
+  - [✅] - Développer une API endpoint (`server/api/agents/predefined.get.ts`) qui lit les fichiers dans `/agents` et retourne la liste.
   - [ ] - Créer un dossier `/agentcustom` (ou similaire) pour les agents personnalisés.
-  - [ ] - Développer une API endpoint (`server/api/agents/predefined.get.ts`) qui lit les fichiers dans `/agents` et retourne la liste.
   - [ ] - Développer des API endpoints pour les agents custom (`server/api/agents/custom.get.ts`, `server/api/agents/custom.post.ts`, `server/api/agents/custom/[id].put.ts`, `server/api/agents/custom/[id].delete.ts`).
       - [ ] - La route POST/PUT doit gérer la logique : si l'édition concerne un agent prédéfini (basé sur un ID/nom spécial ?), elle crée un nouvel agent dans `/agentcustom`. Si elle concerne un agent déjà custom, elle modifie le fichier existant.
 - [ ] 2.  **Configuration des Modèles et Services (Backend) :**
-  - [ ] - Créer des fichiers de configuration (ex: `server/config/models.json`, `server/config/services.json`) listant les modèles d'IA disponibles et les services connectables.
+  - [✅] - Créer des fichiers de configuration (ex: `server/config/models.json`, `server/config/services.json`) listant les modèles d'IA disponibles et les services connectables.
   - [ ] - Créer des API endpoints pour lire ces configurations (`server/api/config/models.get.ts`, `server/api/config/services.get.ts`).
 - [ ] 3.  **Authentification (Backend) :**
   - [ ] - Choisir une stratégie d'authentification (ex: `nuxt-auth`, ou gestion manuelle avec sessions/JWT).
@@ -139,15 +139,15 @@
   - [ ] - Créer une page ou un composant modal pour les paramètres.
   - [ ] - Permettre à l'utilisateur de saisir et sauvegarder ses clés API pour les différents services/modèles d'IA.
   - [ ] - Créer des endpoints API (`server/api/settings/apikeys.get.ts`, `server/api/settings/apikeys.post.ts`) pour gérer les clés API.
-  - [ ] - **Sécurité :** Stocker les clés API de manière sécurisée côté serveur (variables d'environnement chiffrées ou base de données sécurisée). **Ne jamais les exposer côté client.**
+  - [🚧] - **Sécurité :** Stocker les clés API de manière sécurisée côté serveur (variables d'environnement chiffrées ou base de données sécurisée). **Ne jamais les exposer côté client.**
 - [ ] 5.  **Intégration API Externe (Core Logic) :**
-  - [ ] - Développer la logique serveur pour interagir avec les API des modèles d'IA (ex: OpenAI API).
-  - [ ] - Créer un endpoint API (ex: `server/api/agents/[id]/invoke.post.ts`) qui prend une tâche/prompt, récupère la configuration de l'agent, utilise la clé API de l'utilisateur et appelle l'API externe.
-  - [ ] - Gérer les réponses et les erreurs des API externes.
+  - [🚧] - Développer la logique serveur pour interagir avec les API des modèles d'IA (ex: OpenAI API).
+  - [✅] - Créer un endpoint API (ex: `server/api/agents/[id]/invoke.post.ts`) qui prend une tâche/prompt, récupère la configuration de l'agent, utilise la clé API de l'utilisateur et appelle l'API externe.
+  - [🚧] - Gérer les réponses et les erreurs des API externes.
 - [ ] 6.  **Connexion Frontend <-> Backend :**
-  - [ ] - Remplacer toutes les données statiques et placeholders du frontend par des appels aux API endpoints créés (`useFetch`, `useAsyncData` de Nuxt).
-  - [ ] - Gérer l'état de chargement (`pending`) et les erreurs (`error`) retournés par les appels API pour fournir un feedback à l'utilisateur (messages d'erreur, indicateurs de chargement).
-  - [ ] - Connecter les formulaires (Login, Register, TaskModal, Settings) pour qu'ils soumettent les données aux API backend.
+  - [🚧] - Remplacer toutes les données statiques et placeholders du frontend par des appels aux API endpoints créés (`useFetch`, `useAsyncData` de Nuxt).
+  - [✅] - Gérer l'état de chargement (`pending`) et les erreurs (`error`) retournés par les appels API pour fournir un feedback à l'utilisateur (messages d'erreur, indicateurs de chargement).
+  - [🚧] - Connecter les formulaires (Login, Register, TaskModal, Settings) pour qu'ils soumettent les données aux API backend.
   - [ ] - Utiliser le middleware Nuxt ou des vérifications dans les pages/layouts pour protéger les routes qui nécessitent une authentification.
 - [ ] 7.  **Persistance des Agents sur le Workspace :**
   - [ ] - Sauvegarder l'état du `MainWorkspace` (quels agents sont présents et où) côté serveur, probablement lié au compte utilisateur. Mettre à jour cet état via des appels API lors des actions de drag-and-drop, suppression, etc.
@@ -173,7 +173,7 @@ Ce document détaille les points d'amélioration et d'attention suggérés par d
 
 - [ ] 1.  **Phase 1 (Setup) : Qualité et Outillage**
 
-  - [x] - **Qualité du Code :** `ESLint`, `Prettier`, `Husky`, `lint-staged` intégrés.
+  - [✅] - **Qualité du Code :** `ESLint`, `Prettier`, `Husky`, `lint-staged` intégrés.
   - [ ] - **Architecture CSS :** Préciser l'approche.
   - [ ] - **Développement Isolé des Composants :** Utiliser `Storybook` ou `Histoire`.
 
@@ -188,8 +188,8 @@ Ce document détaille les points d'amélioration et d'attention suggérés par d
   - [ ] - **Tests Frontend**
 
 - [ ] 3.  **Phase 3 (Intégration) : Feedback Utilisateur**
-  - [ ] - **Gestion Fine des Erreurs**
-  - [ ] - **Indicateurs de Chargement**
+  - [🚧] - **Gestion Fine des Erreurs**
+  - [🚧] - **Indicateurs de Chargement**
   - [ ] - **Optimistic UI**
 
 ---
@@ -219,7 +219,7 @@ Ce document détaille les points d'amélioration et d'attention suggérés par d
   - [ ] - **Base de Données :**
       - [ ] - Justifier le choix (PostgreSQL/MongoDB). Utiliser un **ORM** (Prisma) pour migrations, requêtes sécurisées.
       - [ ] - Définir les schémas clairement.
-  - [ ] - **Gestion de la Configuration (Backend) :** Utiliser `.env` (non commités) pour les secrets. Différencier les environnements.
+  - [✅] - **Gestion de la Configuration (Backend) :** Utiliser `.env` (non commités) pour les secrets. Différencier les environnements.
   - [ ] - **Scalabilité :** Penser "stateless" pour le backend. Identifier les potentiels goulots d'étranglement.
 
 - [ ] 3.  **Phase 4 (Futur) et Scalabilité :**

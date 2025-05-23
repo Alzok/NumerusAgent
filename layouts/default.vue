@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <!-- Top Bar -->
-    <v-app-bar app color="primary" >
+    <v-app-bar app color="surface" density="compact" class="top-bar-pixel">
       <TopBar />
     </v-app-bar>
 
@@ -95,6 +95,25 @@ const closeSnackbarManual = () => {
 </script>
 
 <style scoped>
+/* TODO: Globally import and set 'Press Start 2P' or chosen pixel font in nuxt.config or global CSS */
+/* @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); */
+
+:deep(.v-application .v-app-bar.top-bar-pixel) {
+  font-family: 'Press Start 2P', monospace; /* Specific pixel font with fallback */
+  box-shadow: none !important;
+  border-bottom: 3px solid #212121 !important; /* Dark grey border, assuming #212121 is your 'on-surface' or similar dark color */
+  border-radius: 0 !important;
+  /* background-color is handled by the 'color="surface"' prop of v-app-bar */
+}
+
+/* Ensure components inside TopBar.vue inherit the font if not explicitly set there */
+:deep(.top-bar-pixel .v-toolbar-title),
+:deep(.top-bar-pixel .v-btn),
+:deep(.top-bar-pixel span) { /* Targeting the points span */
+  font-family: inherit !important; /* Inherit 'Press Start 2P' */
+}
+
+
 .main-content-area {
   /* You could add a temporary background here if needed for visualization */
   /* background-color: #f0f0f0; */
@@ -105,4 +124,4 @@ const closeSnackbarManual = () => {
 }
 /* Add any layout-specific styles here if needed */
 /* Ensure panels take full height - Vuetify's 'app' prop usually handles this */
-</style> 
+</style>

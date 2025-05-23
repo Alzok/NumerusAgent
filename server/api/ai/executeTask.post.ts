@@ -1,8 +1,8 @@
-import { defineEventHandler, readBody, createError } from 'h3';
+import { defineEventHandler, readBody, createError, H3Error } from 'h3';
 import { getModelConfig } from '~/server/services/ai/config';
+import { type AIModelService } from '~/server/services/ai/base'; // Import base interface
 import { MockAIService } from '~/server/services/ai/MockAIService';
-// Note: constructModelIdentifier is not used in this file as per current plan
-// import { getModelConfig, constructModelIdentifier } from '~/server/services/ai/config';
+import { OpenAIService } from '~/server/services/ai/OpenAIService'; // Import OpenAIService
 
 
 // Interface for the expected request body
@@ -38,35 +38,42 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  let aiResponse: string;
+  let service: AIModelService; // Use the base interface type
 
   if (modelConfig.provider === 'mock') {
-    const service = new MockAIService(modelConfig);
-    try {
-      // Pass services array as part of context if MockAIService is adapted to use it
-      // For now, context is not deeply used by MockAIService, but could be:
-      // const context = { services: body.services };
-      // aiResponse = await service.execute(body.prompt, context);
-      aiResponse = await service.execute(body.prompt);
-    } catch (e: any) {
-      console.error(`Error during MockAIService execution for ${modelConfig.modelId}:`, e);
-      throw createError({
-        statusCode: 500,
-        statusMessage: `Error processing task with mock service: ${e.message}`,
-      });
-    }
+    service = new MockAIService(modelConfig);
+  } else if (modelConfig.provider === 'openai') {
+    service = new OpenAIService(modelConfig);
   } else {
-    // Handle other providers in the future (OpenAI, Ollama, etc.)
-    console.warn(`Provider '${modelConfig.provider}' not implemented yet for model ${modelConfig.modelId}.`);
+    console.error(`Unsupported AI provider: ${modelConfig.provider} for model ${body.modelIdentifier}`);
     throw createError({
       statusCode: 501,
-      statusMessage: `Provider '${modelConfig.provider}' not implemented yet.`,
+      statusMessage: `AI Provider '${modelConfig.provider}' is not implemented yet for model '${body.modelIdentifier}'.`
     });
   }
 
-  return {
-    success: true,
-    message: `Task processed successfully by ${modelConfig.displayName || modelConfig.modelId}`,
-    result: aiResponse,
-  };
+  try {
+    // const context = { services: body.services }; // Future: pass context
+    const aiResponse = await service.execute(body.prompt /*, context */);
+    return {
+      success: true,
+      message: `Task processed successfully by ${modelConfig.displayName || modelConfig.modelId}`,
+      result: aiResponse,
+    };
+  } catch (error: any) {
+    // Log the error with more context before re-throwing or creating a new error
+    console.error(`Error during service execution for model ${modelConfig.modelId} (Provider: ${modelConfig.provider}):`, error);
+    
+    // Check if the error is already an H3Error (thrown by the service)
+    // H3Error has a 'statusCode' property.
+    if (error instanceof H3Error || error.statusCode) {
+        throw error; // Re-throw it directly
+    }
+    
+    // For other types of errors, wrap them in a generic H3Error
+    throw createError({
+      statusCode: 500,
+      statusMessage: `An error occurred while executing task with ${modelConfig.displayName || modelConfig.modelId}. ${error.message || 'Unknown error'}`,
+    });
+  }
 });

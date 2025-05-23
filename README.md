@@ -60,6 +60,40 @@ Le projet intègre maintenant Nuxt 3, Vuetify 3, et Pinia pour la gestion d'éta
 *   Connecter la sélection du modèle IA et des services dans `TaskModal` à une logique réelle.
 *   Persistance de l'état des agents (localStorage, backend...).
 
+## API Key Configuration
+
+To use AI models from external providers like OpenAI or Anthropic, you need to configure the necessary API keys. This project uses environment variables for securely managing these keys.
+
+1.  **Create a `.env` file:**
+    In the root of the project, you'll find a file named `.env.example`. Make a copy of this file and name it `.env`.
+
+    ```bash
+    cp .env.example .env
+    ```
+
+2.  **Edit your `.env` file:**
+    Open the newly created `.env` file and add your API keys for the respective services you intend to use. For example:
+
+    ```env
+    # .env - Your Local Environment Configuration (DO NOT COMMIT THIS FILE)
+
+    # OpenAI API Key
+    OPENAI_API_KEY="sk-your_openai_api_key_here"
+
+    # Anthropic API Key (if you plan to use Anthropic models)
+    ANTHROPIC_API_KEY="sk-ant-your_anthropic_api_key_here"
+    ```
+
+    Replace `"sk-your_openai_api_key_here"` and `"sk-ant-your_anthropic_api_key_here"` with your actual API keys.
+
+3.  **How it Works:**
+    *   The `.env` file is listed in `.gitignore`, so your secret keys will not be committed to the repository.
+    *   The Nuxt application is configured to load these variables from the `.env` file during development (and in production environments, these are typically set directly as environment variables).
+    *   These API keys are accessed **server-side only** by Nuxt's server engine and are not exposed directly to the frontend browser, ensuring their security.
+    *   If a required API key is not configured for a selected AI model, the application will show an error message originating from the server.
+
+Make sure to restart your development server after creating or modifying the `.env` file for the changes to take effect.
+
 ## Démarrage Rapide (Développement)
 
 L'environnement de développement principal repose sur Docker.

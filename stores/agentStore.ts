@@ -123,6 +123,18 @@ export const useAgentStore = defineStore('agentStore', {
 
         if (task) {
           this.updateAgentTaskStatus(workspaceId, 'processing');
+
+          // Add console warning for models requiring API keys (UX Hint)
+          if (task.model && (task.model.startsWith('openai/') || task.model.startsWith('anthropic/'))) {
+            const providerName = task.model.split('/')[0];
+            const apiKeyEnvVar = providerName === 'openai' ? 'OPENAI_API_KEY' : 'ANTHROPIC_API_KEY';
+            console.warn(
+              `[User Hint] Agent '${agent.name}' is using a ${providerName} model ('${task.model}'). ` +
+              `Ensure your ${apiKeyEnvVar} is correctly set in the server's .env file. ` +
+              `The application will proceed, but the backend will return an error if the key is missing or invalid.`
+            );
+          }
+
           try {
             const response = await fetch('/api/ai/executeTask', {
               method: 'POST',

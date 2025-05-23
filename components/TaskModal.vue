@@ -83,8 +83,9 @@ const aiModels = ref([
   { title: 'Select a model', value: null as string | null, disabled: true }, // Placeholder
   { title: 'Basic Responder (Mock)', value: 'mock/basic-responder' },
   { title: 'Advanced Responder (Mock)', value: 'mock/advanced-responder' },
+  { title: 'GPT-3.5 Turbo (OpenAI)', value: 'openai/gpt-3.5-turbo' }, // Added
   // Future models can be added here. These values should match modelIdentifiers in backend config.
-  // { title: 'GPT-4o (OpenAI)', value: 'openai/gpt-4o' }, // Example if configured
+  // { title: 'GPT-4o (OpenAI)', value: 'openai/gpt-4o' }, // Example for another OpenAI model
   // { title: 'Mistral (Ollama)', value: 'ollama/mistral' }, // Example if configured
 ]);
 

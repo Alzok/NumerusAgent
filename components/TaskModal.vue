@@ -1,6 +1,6 @@
 <template>
   <v-dialog :model-value="isVisible" @update:model-value="handleVisibilityChange" max-width="600px" persistent>
-    <v-card>
+    <v-card class="task-modal-card">
       <v-card-title>
         <span class="text-h5">{{ editingTask ? 'Éditer Tâche' : 'Créer Tâche' }}</span>
       </v-card-title>
@@ -140,11 +140,87 @@ const saveTask = () => {
 </script>
 
 <style scoped>
-/* Styles spécifiques si nécessaires */
-.v-card-title {
-  border-bottom: 1px solid #ccc;
+/* TODO: Globally import and set 'Press Start 2P' or chosen pixel font */
+
+:deep(.v-dialog .v-card.task-modal-card) {
+  /* font-family: 'Press Start 2P', monospace; */ /* Removed, should inherit from body */
+  border-radius: 0 !important;
+  border: 3px solid #212121 !important;
+  box-shadow: none !important;
+  background-color: var(--v-theme-surface) !important;
 }
-.v-card-actions {
-    border-top: 1px solid #ccc;
+
+:deep(.task-modal-card .v-card-title) {
+  font-size: 1.1rem !important;
+  border-bottom: 2px solid #424242 !important;
+  /* font-family: inherit !important; */ /* Removed, should inherit */
+  padding: 12px 16px !important; /* Adjusted padding */
 }
-</style> 
+
+:deep(.task-modal-card .v-label),
+:deep(.task-modal-card .v-checkbox .v-label),
+:deep(.task-modal-card small) {
+  /* font-family: inherit !important; */ /* Removed, should inherit */
+  font-size: 0.8rem !important;
+  color: var(--v-theme-on-surface);
+  opacity: 1; /* Ensure labels are not semi-transparent by default */
+}
+
+:deep(.task-modal-card .v-textarea .v-field),
+:deep(.task-modal-card .v-select .v-field) {
+  border-radius: 0 !important;
+  border: 2px solid #424242 !important;
+  background-color: rgba(var(--v-theme-on-surface-rgb), 0.05) !important;
+  box-shadow: none !important; /* Remove inner shadows if any */
+}
+
+:deep(.task-modal-card .v-textarea .v-field textarea), /* Target actual input element */
+:deep(.task-modal-card .v-select .v-field .v-select__selection-text) {
+   /* font-family: inherit !important; */ /* Removed, should inherit */
+   font-size: 0.9rem !important; /* Ensure input text is also styled */
+   color: var(--v-theme-on-surface);
+}
+
+/* Checkbox styling - focus on label and container if icon is hard to change */
+:deep(.task-modal-card .v-checkbox .v-selection-control) {
+  /* Minor adjustments if needed, but deep icon changes are complex */
+}
+:deep(.task-modal-card .v-checkbox .v-selection-control__input .v-icon) {
+  /* Default MDI icons are hard to make pixelated without custom SVG/font.
+     Can try to make it appear more "solid" */
+  /* color: var(--v-theme-primary) !important; */ /* Example: color change */
+}
+
+
+:deep(.task-modal-card .v-card-actions) {
+  border-top: 2px solid #424242 !important;
+  padding-top: 16px !important; /* Adjusted padding */
+  padding-bottom: 16px !important; /* Adjusted padding */
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+}
+
+:deep(.task-modal-card .v-card-actions .v-btn) {
+  border-radius: 0 !important;
+  border: 2px solid var(--v-theme-on-surface) !important;
+  /* font-family: inherit !important; */ /* Removed, should inherit */
+  text-transform: none !important;
+  font-size: 0.85rem !important;
+  box-shadow: none !important;
+  padding: 8px 16px !important; /* Adjust button padding */
+}
+
+/* Remove default Vuetify fieldset border on v-field if it appears and conflicts */
+:deep(.task-modal-card .v-field__outline fieldset) {
+    border: none !important;
+}
+
+/* Ensure clearable icon in v-select is also styled if possible, or consider removing for pixel look */
+:deep(.task-modal-card .v-select .v-field__append-inner .v-icon) {
+    color: var(--v-theme-on-surface);
+}
+
+/* Existing styles if any, ensure they don't conflict or remove if redundant */
+/* .v-card-title { border-bottom: 1px solid #ccc; } */
+/* .v-card-actions { border-top: 1px solid #ccc; } */
+</style>

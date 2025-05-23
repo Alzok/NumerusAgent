@@ -103,7 +103,7 @@ const closeSnackbarManual = () => {
 /* @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); */
 
 :deep(.v-application .v-app-bar.top-bar-pixel) {
-  font-family: 'Press Start 2P', monospace; /* Specific pixel font with fallback */
+  /* font-family: 'Press Start 2P', monospace; */ /* Removed, should inherit from body */
   box-shadow: none !important;
   border-bottom: 3px solid #212121 !important; /* Dark grey border, assuming #212121 is your 'on-surface' or similar dark color */
   border-radius: 0 !important;
@@ -114,7 +114,7 @@ const closeSnackbarManual = () => {
 :deep(.top-bar-pixel .v-toolbar-title),
 :deep(.top-bar-pixel .v-btn),
 :deep(.top-bar-pixel span) { /* Targeting the points span */
-  font-family: inherit !important; /* Inherit 'Press Start 2P' */
+  /* font-family: inherit !important; */ /* Removed, should inherit from body */
 }
 
 
@@ -131,7 +131,7 @@ const closeSnackbarManual = () => {
 
 /* Styling for the Left Navigation Drawer Container */
 :deep(.v-navigation-drawer.left-drawer-pixel-style) {
-  font-family: 'Press Start 2P', monospace !important; /* Ensure drawer itself has the font */
+  /* font-family: 'Press Start 2P', monospace !important; */ /* Removed, should inherit */
   border-right: 3px solid #212121 !important; /* Dark border */
   border-radius: 0 !important; /* No rounded corners */
   box-shadow: none !important; /* Remove default shadow */
@@ -145,7 +145,7 @@ const closeSnackbarManual = () => {
 
 /* Styling for the Right Navigation Drawer Container */
 :deep(.v-navigation-drawer.right-drawer-pixel-style) {
-  font-family: 'Press Start 2P', monospace !important; /* Ensure drawer itself has the font */
+  /* font-family: 'Press Start 2P', monospace !important; */ /* Removed, should inherit */
   border-left: 3px solid #212121 !important; /* Dark border on the left */
   border-radius: 0 !important; /* No rounded corners */
   box-shadow: none !important; /* Remove default shadow */

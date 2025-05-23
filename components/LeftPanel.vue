@@ -129,7 +129,7 @@ const handleDragStart = (event: DragEvent, agent: AgentConfig) => {
 
 /* This class now applies the font to the whole panel content */
 .left-panel-container {
-  font-family: 'Press Start 2P', monospace;
+  /* font-family: 'Press Start 2P', monospace; */ /* Removed, should inherit */
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -143,13 +143,13 @@ const handleDragStart = (event: DragEvent, agent: AgentConfig) => {
   border-radius: 0 !important;
   border: 2px solid var(--v-theme-on-surface) !important;
   box-shadow: none !important;
-  font-family: inherit !important; /* Inherit pixel font */
+  /* font-family: inherit !important; */ /* Removed, should inherit */
   min-width: auto !important; /* Allow button to be small */
   padding: 0 8px !important;
 }
 :deep(.left-panel-top-controls .v-list-item-title) {
   font-size: 1rem !important; /* Adjust for pixel font */
-  font-family: inherit !important;
+  /* font-family: inherit !important; */ /* Removed, should inherit */
 }
 
 
@@ -173,11 +173,11 @@ const handleDragStart = (event: DragEvent, agent: AgentConfig) => {
 
 :deep(.left-panel-list .v-list-item-title) {
   font-size: 0.9rem !important; /* Adjust for pixel font */
-  font-family: inherit !important; /* Inherit from .left-panel-container */
+  /* font-family: inherit !important; */ /* Removed, should inherit */
 }
 
 :deep(.left-panel-list .v-list-item .v-icon) { /* Icon styling for agent image */
-  font-family: inherit !important; /* Should not be needed if icon is pure SVG/font-icon */
+  /* font-family: inherit !important; */ /* Removed, was likely not needed */
 }
 
 /* Info button within list items */
@@ -185,7 +185,7 @@ const handleDragStart = (event: DragEvent, agent: AgentConfig) => {
   border-radius: 0 !important;
   border: 2px solid var(--v-theme-on-surface) !important;
   box-shadow: none !important;
-  font-family: inherit !important; /* Inherit pixel font */
+  /* font-family: inherit !important; */ /* Removed, should inherit */
   min-width: auto !important;
   padding: 0 4px !important; /* Adjust for small icon button */
 }
@@ -196,7 +196,7 @@ const handleDragStart = (event: DragEvent, agent: AgentConfig) => {
 
 /* Styling for the Info Dialog */
 :deep(.agent-info-dialog .v-card) {
-  font-family: 'Press Start 2P', monospace;
+  /* font-family: 'Press Start 2P', monospace; */ /* Removed, should inherit */
   border-radius: 0 !important;
   border: 3px solid #212121 !important; /* Dark main border for dialog */
   background-color: var(--v-theme-surface);
@@ -207,20 +207,20 @@ const handleDragStart = (event: DragEvent, agent: AgentConfig) => {
   font-size: 1.1rem !important;
   border-bottom: 2px solid #424242 !important; /* Separator for title */
   padding: 12px 16px !important;
-  font-family: inherit !important;
+  /* font-family: inherit !important; */ /* Removed, should inherit */
 }
 
 :deep(.agent-info-dialog .v-card-text) {
   font-size: 0.85rem !important; /* Base size for dialog text */
   padding: 16px !important;
-  font-family: inherit !important;
+  /* font-family: inherit !important; */ /* Removed, should inherit */
 }
 :deep(.agent-info-dialog .v-card-text p) {
   margin-bottom: 12px !important;
 }
 
 :deep(.agent-info-dialog .v-card-text pre) {
-  font-family: 'Press Start 2P', monospace !important; /* Ensure pre also gets the font */
+  /* font-family: 'Press Start 2P', monospace !important; */ /* Assuming inherit will work */
   font-size: 0.8rem !important;
   background-color: rgba(var(--v-theme-on-surface-rgb), 0.05) !important;
   border: 2px solid #424242 !important;
@@ -237,7 +237,7 @@ const handleDragStart = (event: DragEvent, agent: AgentConfig) => {
 :deep(.agent-info-dialog .v-card-actions .v-btn) {
   border-radius: 0 !important;
   border: 2px solid var(--v-theme-on-surface) !important;
-  font-family: inherit !important;
+  /* font-family: inherit !important; */ /* Removed, should inherit */
   padding: 4px 16px !important;
   font-size: 0.8rem !important;
   text-transform: none !important;

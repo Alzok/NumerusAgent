@@ -163,7 +163,7 @@ onUnmounted(() => {
 /* TODO: Globally import and set 'Press Start 2P' or chosen pixel font */
 
 :deep(.main-workspace-card.v-card) {
-  font-family: 'Press Start 2P', monospace;
+  /* font-family: 'Press Start 2P', monospace; */ /* Removed, should inherit from body */
   border-radius: 0 !important;
   border: 3px solid #212121 !important; /* Main outer border */
   box-shadow: none !important;
@@ -185,37 +185,39 @@ onUnmounted(() => {
 
 :deep(.main-workspace-card .v-card-title) {
   font-size: 1.2rem !important; /* Adjust for pixel font */
-  font-family: inherit !important; /* Inherit from card */
+  /* font-family: inherit !important; */ /* Removed, should inherit from body */
   padding-bottom: 8px !important;
   color: var(--v-theme-on-surface); /* Use theme color */
 }
 
 :deep(.main-workspace-card .v-card-subtitle) {
   font-size: 0.9rem !important; /* Adjust for pixel font */
-  font-family: inherit !important; /* Inherit from card */
+  /* font-family: inherit !important; */ /* Removed, should inherit from body */
   color: var(--v-theme-on-surface); /* Use theme color */
 }
 
 /* Targeting the "Aucun agent actif." message specifically */
 :deep(.main-workspace-card .text-center.text-grey) {
-  font-family: inherit !important; /* Inherit from card */
+  /* font-family: inherit !important; */ /* Removed, should inherit from body */
   font-size: 1rem !important;
   color: #757575 !important; /* A readable grey, or var(--v-theme-on-surface) with opacity */
 }
 
 .agent-container { /* Class already exists on the div for agents */
-  background-color: #E0E0E0; /* Slightly different background for the agent area, like surface */
-  /* If you want a pixel grid background, it would be more complex:
-     background-image: linear-gradient(to right, #bdbdbd 1px, transparent 1px),
-                       linear-gradient(to bottom, #bdbdbd 1px, transparent 1px);
-     background-size: 20px 20px; // Adjust grid size
-     border-top: 2px solid #212121; // Example border for the container
-  */
+  /* Fallback or base background color, using theme's background color */
+  background-color: var(--v-theme-background); /* Should be #CCCCCC based on theme */
+  
+  /* Pixel Grid Background */
+  background-image: 
+    linear-gradient(to right, rgba(0,0,0,0.1) 1px, transparent 1px), /* Vertical lines - subtle dark lines */
+    linear-gradient(to bottom, rgba(0,0,0,0.1) 1px, transparent 1px); /* Horizontal lines - subtle dark lines */
+  background-size: 20px 20px; /* Size of the grid squares */
+  
   flex-grow: 1;
   position: relative;
   overflow: hidden;
   /* Add a border to distinguish it from the main card padding area if needed */
-  /* border: 2px solid #BDBDBD; */ /* Example border */
+  /* border: 2px solid #424242; */ /* Example darker border, if needed */
   margin: 2px; /* Small margin to not overlap card border if it also has padding */
 }
 </style>

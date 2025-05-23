@@ -24,7 +24,7 @@
 .top-bar-title-text { /* More specific class for the title if needed */
   font-size: 1.2rem !important; /* Adjust size for pixel font */
   color: var(--v-theme-on-surface);
-  font-family: 'Press Start 2P', monospace; /* Apply directly here for now */
+  /* font-family: 'Press Start 2P', monospace; */ /* Removed, should inherit */
   margin-right: 16px;
 }
 
@@ -32,7 +32,7 @@
   font-size: 0.9rem !important; /* Adjust size for pixel font */
   margin-right: 16px;
   color: var(--v-theme-on-surface);
-  font-family: 'Press Start 2P', monospace; /* Apply directly here for now */
+  /* font-family: 'Press Start 2P', monospace; */ /* Removed, should inherit */
   align-self: center; /* Align with title and buttons */
 }
 
@@ -42,7 +42,7 @@
   border: 2px solid var(--v-theme-on-surface) !important; /* Border for buttons */
   margin: 0 4px; /* Adjust spacing */
   color: var(--v-theme-on-surface) !important; /* Ensure text color is applied */
-  font-family: 'Press Start 2P', monospace; /* Apply directly here for now */
+  /* font-family: 'Press Start 2P', monospace; */ /* Removed, should inherit */
   text-transform: none; /* Prevent uppercase default for some Vuetify buttons */
 }
 

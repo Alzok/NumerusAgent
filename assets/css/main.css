@@ -1,0 +1,13 @@
+/* assets/css/main.css */
+body {
+  font-family: 'Press Start 2P', monospace;
+  background-color: var(--v-theme-background); /* Optional: ensure body bg matches theme */
+}
+
+/* Optional: Apply to all elements for more aggressive inheritance,
+   but body usually suffices for most text. Vuetify components might need
+   their own overrides or :deep styles if they don't inherit well. */
+/* * {
+     font-family: 'Press Start 2P', monospace !important;
+   }
+*/

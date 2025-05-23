@@ -1,0 +1,26 @@
+[
+  {
+    "id": "email",
+    "name": "Service Email",
+    "description": "Permet à l'agent d'envoyer et de recevoir des emails.",
+    "icon": "mdi-email-outline"
+  },
+  {
+    "id": "calendar",
+    "name": "Service Calendrier",
+    "description": "Permet à l'agent de gérer des événements de calendrier.",
+    "icon": "mdi-calendar-blank-outline"
+  },
+  {
+    "id": "web",
+    "name": "Accès Web",
+    "description": "Permet à l'agent de rechercher des informations sur le web.",
+    "icon": "mdi-web"
+  },
+  {
+    "id": "filesystem",
+    "name": "Accès Système de Fichiers",
+    "description": "Permet à l'agent d'interagir avec le système de fichiers local (accès restreint).",
+    "icon": "mdi-folder-outline"
+  }
+]

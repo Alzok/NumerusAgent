@@ -70,8 +70,8 @@
   - [✅] - Implémenter la fonctionnalité "refermable".
   - [✅] - Afficher une liste statique d'agents (via API `predefined`).
   - [✅] - Rendre chaque agent de la liste _draggable_.
-  - [🚧] - **PROCHAINE ÉTAPE :** Ajouter un bouton/icône 'Éditer' pour pré-sélectionner l'agent.
-  - [ ] - Styliser le panneau et la liste (pixel art).
+  - [✅] - Ajouter un bouton/icône 'Info' pour afficher les détails de l'agent prédéfini.
+  - [🚧] - Styliser le panneau et la liste (pixel art - initial pass).
 - [✅] 4.  **Composant `MainWorkspace` (`components/MainWorkspace.vue`) :**
   - [✅] - Définir cette zone comme une _dropzone_.
   - [✅] - Lorsqu'un agent est déposé :
@@ -129,7 +129,7 @@
       - [ ] - La route POST/PUT doit gérer la logique : si l'édition concerne un agent prédéfini (basé sur un ID/nom spécial ?), elle crée un nouvel agent dans `/agentcustom`. Si elle concerne un agent déjà custom, elle modifie le fichier existant.
 - [ ] 2.  **Configuration des Modèles et Services (Backend) :**
   - [✅] - Créer des fichiers de configuration (ex: `server/config/models.json`, `server/config/services.json`) listant les modèles d'IA disponibles et les services connectables.
-  - [ ] - Créer des API endpoints pour lire ces configurations (`server/api/config/models.get.ts`, `server/api/config/services.get.ts`).
+  - [🚧] - Créer des API endpoints pour lire ces configurations (models.get.ts done; services.get.ts pending).
 - [ ] 3.  **Authentification (Backend) :**
   - [ ] - Choisir une stratégie d'authentification (ex: `nuxt-auth`, ou gestion manuelle avec sessions/JWT).
   - [ ] - Implémenter les endpoints API (`server/api/auth/register.post.ts`, `server/api/auth/login.post.ts`, `server/api/auth/logout.post.ts`, `server/api/auth/session.get.ts`).

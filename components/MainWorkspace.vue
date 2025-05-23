@@ -160,18 +160,62 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.main-workspace-card {
-  border: 2px dashed #9E9E9E;
-  background-color: var(--v-theme-background);
+/* TODO: Globally import and set 'Press Start 2P' or chosen pixel font */
+
+:deep(.main-workspace-card.v-card) {
+  font-family: 'Press Start 2P', monospace;
+  border-radius: 0 !important;
+  border: 3px solid #212121 !important; /* Main outer border */
+  box-shadow: none !important;
+  background-color: var(--v-theme-background); /* Ensure background is applied */
   display: flex;
   flex-direction: column;
   overflow: hidden;
   height: 100%;
+  /* The existing border: 2px dashed #9E9E9E; for the drop effect can remain,
+     as it's part of the functional styling of the dropzone, applied by default Vuetify or custom.
+     If this style is directly on .main-workspace-card, it might be overridden by the solid border.
+     It's better if the dashed border is on an inner element or applied conditionally.
+     For now, the solid border will take precedence if both target the same element's border property.
+     The prompt says "ensure it's inside the main solid border or harmonizes with it".
+     The current .main-workspace-card has the dashed border. We will keep it for now.
+     The new 3px solid border will be the primary one.
+  */
 }
 
-.agent-container {
+:deep(.main-workspace-card .v-card-title) {
+  font-size: 1.2rem !important; /* Adjust for pixel font */
+  font-family: inherit !important; /* Inherit from card */
+  padding-bottom: 8px !important;
+  color: var(--v-theme-on-surface); /* Use theme color */
+}
+
+:deep(.main-workspace-card .v-card-subtitle) {
+  font-size: 0.9rem !important; /* Adjust for pixel font */
+  font-family: inherit !important; /* Inherit from card */
+  color: var(--v-theme-on-surface); /* Use theme color */
+}
+
+/* Targeting the "Aucun agent actif." message specifically */
+:deep(.main-workspace-card .text-center.text-grey) {
+  font-family: inherit !important; /* Inherit from card */
+  font-size: 1rem !important;
+  color: #757575 !important; /* A readable grey, or var(--v-theme-on-surface) with opacity */
+}
+
+.agent-container { /* Class already exists on the div for agents */
+  background-color: #E0E0E0; /* Slightly different background for the agent area, like surface */
+  /* If you want a pixel grid background, it would be more complex:
+     background-image: linear-gradient(to right, #bdbdbd 1px, transparent 1px),
+                       linear-gradient(to bottom, #bdbdbd 1px, transparent 1px);
+     background-size: 20px 20px; // Adjust grid size
+     border-top: 2px solid #212121; // Example border for the container
+  */
   flex-grow: 1;
   position: relative;
   overflow: hidden;
+  /* Add a border to distinguish it from the main card padding area if needed */
+  /* border: 2px solid #BDBDBD; */ /* Example border */
+  margin: 2px; /* Small margin to not overlap card border if it also has padding */
 }
-</style> 
+</style>

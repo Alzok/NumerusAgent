@@ -33,6 +33,8 @@
       width="300"
       :rail="isRightPanelRail"
       @update:rail="isRightPanelRail = $event"
+      class="right-drawer-pixel-style"
+      color="surface"
     >
       <RightPanel 
         v-model:isRail="isRightPanelRail" 
@@ -140,4 +142,13 @@ const closeSnackbarManual = () => {
 /* If LeftPanel.vue's root div .left-panel-container also sets font-family,
    this ensures the v-navigation-drawer itself has it for any direct text/elements if any.
    The styles from LeftPanel.vue for its internal content should still apply. */
+
+/* Styling for the Right Navigation Drawer Container */
+:deep(.v-navigation-drawer.right-drawer-pixel-style) {
+  font-family: 'Press Start 2P', monospace !important; /* Ensure drawer itself has the font */
+  border-left: 3px solid #212121 !important; /* Dark border on the left */
+  border-radius: 0 !important; /* No rounded corners */
+  box-shadow: none !important; /* Remove default shadow */
+  /* background-color is explicitly set by color="surface" prop */
+}
 </style>

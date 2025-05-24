@@ -125,7 +125,7 @@
   - [✅] - Créer quelques fichiers de configuration JSON (ou YAML) pour les agents prédéfinis.
       - [ ] - Exemple `agent-alpha.json`: `{ "name": "AlphaBot", "modelName": "GPT-4o", "modelProvider": "OpenAI", "image": "/images/robots/alpha.png", "prompt": "Tu es AlphaBot, un assistant généraliste.", "services": [] }`
   - [✅] - Développer une API endpoint (`server/api/agents/predefined.get.ts`) qui lit les fichiers dans `/agents` et retourne la liste.
-  - [ ] - Créer un dossier `/agentcustom` (ou similaire) pour les agents personnalisés.
+  - [✅] - Créer un dossier `/agentcustom` (ou similaire) pour les agents personnalisés.
   - [ ] - Développer des API endpoints pour les agents custom (`server/api/agents/custom.get.ts`, `server/api/agents/custom.post.ts`, `server/api/agents/custom/[id].put.ts`, `server/api/agents/custom/[id].delete.ts`).
       - [ ] - La route POST/PUT doit gérer la logique : si l'édition concerne un agent prédéfini (basé sur un ID/nom spécial ?), elle crée un nouvel agent dans `/agentcustom`. Si elle concerne un agent déjà custom, elle modifie le fichier existant.
 - [ ] 2.  **Configuration des Modèles et Services (Backend) :**
@@ -136,8 +136,9 @@
   - [ ] - Implémenter les endpoints API (`server/api/auth/register.post.ts`, `server/api/auth/login.post.ts`, `server/api/auth/logout.post.ts`, `server/api/auth/session.get.ts`).
   - [ ] - Mettre en place une base de données (ex: SQLite pour commencer, PostgreSQL/MongoDB dans Docker pour plus de robustesse) pour stocker les utilisateurs.
 - [ ] 4.  **Gestion des Clés API (Backend & Frontend) :**
-  - [ ] - Créer une section "Paramètres" dans l'interface (accessible via l'icône de la `TopBar`).
-  - [ ] - Créer une page ou un composant modal pour les paramètres.
+  - [✅] - Créer une section "Paramètres" dans l'interface (accessible via l'icône de la TopBar, ouvre SettingsModal).
+  - [🚧] - Créer une page ou un composant modal pour les paramètres (SettingsModal.vue structure créée).
+  - [🚧] - Styliser SettingsModal.vue (pixel art - initial pass).
   - [ ] - Permettre à l'utilisateur de saisir et sauvegarder ses clés API pour les différents services/modèles d'IA.
   - [ ] - Créer des endpoints API (`server/api/settings/apikeys.get.ts`, `server/api/settings/apikeys.post.ts`) pour gérer les clés API.
   - [🚧] - **Sécurité :** Stocker les clés API de manière sécurisée côté serveur (variables d'environnement chiffrées ou base de données sécurisée). **Ne jamais les exposer côté client.**

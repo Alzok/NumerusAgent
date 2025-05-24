@@ -3,16 +3,22 @@
   <v-toolbar-title class="top-bar-title-text">PlayerOne</v-toolbar-title> 
   <span class="top-bar-text">Points: 0</span>
   <v-spacer></v-spacer>
-  <v-btn prepend-icon="mdi-cog" variant="text" class="top-bar-btn">
+  <v-btn prepend-icon="mdi-cog" variant="text" class="top-bar-btn" title="Paramètres" @click="showSettingsModal = true">
     <!-- Settings Icon -->
   </v-btn>
   <v-btn variant="outlined" class="ml-2 top-bar-btn">
     Déconnexion
   </v-btn>
+
+  <SettingsModal :is-visible="showSettingsModal" @close="showSettingsModal = false" />
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
+import SettingsModal from './SettingsModal.vue';
+
 // Logique pour TopBar si nécessaire (ex: récupérer user/points)
+const showSettingsModal = ref(false);
 </script>
 
 <style scoped>

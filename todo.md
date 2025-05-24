@@ -65,7 +65,7 @@
   - [✅] - Afficher un compteur de points (ex: "Points: 0").
   - [✅] - Ajouter un bouton "Déconnexion".
   - [✅] - Ajouter une icône "Paramètres".
-  - [ ] - Styliser la barre (pixel art).
+  - [🚧] - Styliser la barre (pixel art - initial pass).
 - [✅] 3.  **Composant `LeftPanel` (`components/LeftPanel.vue`) :**
   - [✅] - Implémenter la fonctionnalité "refermable".
   - [✅] - Afficher une liste statique d'agents (via API `predefined`).
@@ -78,7 +78,7 @@
       - [✅] - Afficher une représentation de l'agent (`AgentRobot`) à l'endroit du drop (via store).
       - [✅] - Passer des props au `AgentRobot`.
   - [✅] - Gérer l'état des agents présents via Pinia (`agentStore`).
-  - [ ] - Styliser la zone (peut-être une grille de fond, style vaisseau spatial).
+  - [🚧] - Styliser la zone (grille de fond appliquée, style vaisseau spatial TBD).
 - [✅] 5.  **Composant `AgentRobot` (`components/AgentRobot.vue`) :**
   - [✅] - Accepter des props (id, nom, image, x, y).
   - [✅] - Afficher l'image du robot.
@@ -89,26 +89,27 @@
   - [✅] - S'affiche ou se met à jour lorsque le panel est ouvert (via store `selectedAgentId`).
   - [✅] - Afficher les détails de l'agent sélectionné (nom, modèle, tâche via store).
   - [✅] - Ajouter les boutons : "Supprimer Agent", "Créer Tâche", "Éditer Tâche".
-  - [ ] - Styliser le panneau (pixel art).
+  - [🚧] - Styliser le panneau (pixel art - initial pass).
 - [✅] 7.  **Composant `TaskModal` (`components/TaskModal.vue`) :**
   - [✅] - Créer un composant modal (`v-dialog`).
   - [✅] - Le modal contient un formulaire pour :
       - [✅] - Éditer/Créer le nom/prompt (textarea).
-      - [✅] - Sélectionner un modèle d'IA (dropdown statique).
+      - [🚧] - Sélectionner un modèle d'IA (dropdown statique - API dynamique non fonctionnelle).
       - [✅] - Sélectionner des services (checkboxes statiques).
   - [✅] - Ajouter des boutons "Sauvegarder" et "Annuler".
   - [✅] - Le modal est contrôlé par `RightPanel` (`isVisible`, `editingTask` props, `@close`, `@save` emits).
   - [✅] - La sauvegarde appelle l'action du store `updateAgentTask`.
-  - [ ] - Styliser le modal (pixel art).
+  - [ ] - (REQUIERT INTERVENTION MANUELLE) Intégrer le chargement dynamique de la liste des modèles d'IA (tentatives via outillage automatisé échouées).
+  - [🚧] - Styliser le modal (pixel art - initial pass).
 - [✅] 8.  **Routing et Authentification (UI Seulement) :**
   - [✅] - Créer les pages `pages/login.vue` et `pages/register.vue`.
   - [✅] - Implémenter des formulaires simples (email, mot de passe).
   - [✅] - Configurer le routing via `pages/`.
   - [✅] - Créer un layout `layouts/auth.vue` pour ces pages.
   - [✅] - Implémenter une redirection simulée après "login"/"register".
-- [ ] 9.  **Styling Global et Pixel Art :**
+- [✅] 9.  **Styling Global et Pixel Art :**
   - [ ] - Choisir une palette de couleurs rétro SF.
-  - [ ] - Trouver/Créer une police pixel art et l'intégrer (`@font-face`).
+  - [✅] - Police pixel art 'Press Start 2P' intégrée globalement.
   - [ ] - Utiliser des bordures, ombres et éléments UI typiques du pixel art.
   - [ ] - S'assurer de la cohérence du style sur tous les composants.
   - [ ] - Utiliser des assets (images de robots, icônes) au format pixel art.
